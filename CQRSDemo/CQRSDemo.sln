@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSDemo", "CQRSDemo\CQRSDemo.csproj", "{617566B0-D79C-4C5D-B287-C2F2D2297B8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "CQRSDemo\Web.csproj", "{617566B0-D79C-4C5D-B287-C2F2D2297B8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandService", "CommandService\CommandService.csproj", "{F6FAB29E-23F9-4AF3-9E7F-42B8E0F0B256}"
 EndProject
