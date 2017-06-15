@@ -29,6 +29,7 @@
           <Property Name="AggregateRootType" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Version" Type="int" Nullable="false" />
           <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityContainer Name="EventDBModelStoreContainer">
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
@@ -53,20 +54,21 @@
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Synchronized" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityContainer Name="EventDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Event" EntityType="Self.Event" />
+          <EntitySet Name="Snapshot" EntityType="EventDBModel.Snapshot" />
+        </EntityContainer>
         <EntityType Name="Snapshot">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AggregateRootId" Type="Guid" Nullable="false" />
-          <Property Name="AggregateRootType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AggregateRootType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Version" Type="Int32" Nullable="false" />
-          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityContainer Name="EventDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Event" EntityType="Self.Event" />
-          <EntitySet Name="Snapshot" EntityType="Self.Snapshot" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -92,11 +94,12 @@
           <EntitySetMapping Name="Snapshot">
             <EntityTypeMapping TypeName="EventDBModel.Snapshot">
               <MappingFragment StoreEntitySet="Snapshot">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AggregateRootId" ColumnName="AggregateRootId" />
-                <ScalarProperty Name="AggregateRootType" ColumnName="AggregateRootType" />
-                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="AggregateRootType" ColumnName="AggregateRootType" />
+                <ScalarProperty Name="AggregateRootId" ColumnName="AggregateRootId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

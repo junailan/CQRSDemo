@@ -15,7 +15,7 @@ namespace Model
     public partial class Book
     {
         public int Id { get; set; }
-        public System.Guid AggregateRootId { get; set; }
+        public System.Guid BookId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public string Description { get; set; }

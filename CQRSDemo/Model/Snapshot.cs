@@ -19,5 +19,6 @@ namespace Model
         public string AggregateRootType { get; set; }
         public int Version { get; set; }
         public string Data { get; set; }
+        public System.DateTime Timestamp { get; set; }
     }
 }

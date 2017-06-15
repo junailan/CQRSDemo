@@ -15,7 +15,7 @@ namespace Model
     public partial class User
     {
         public int Id { get; set; }
-        public System.Guid AggregateRootId { get; set; }
+        public System.Guid UserId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string DisplayName { get; set; }

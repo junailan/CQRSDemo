@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QueryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QueryDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="AggregateRootId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BookId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Author" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
@@ -34,12 +34,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AggregateRootId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="DisplayName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ContactPhone" Type="nchar" MaxLength="10" />
+          <Property Name="ContactPhone" Type="nvarchar" MaxLength="100" />
           <Property Name="Address_Country" Type="nvarchar" MaxLength="50" />
           <Property Name="Address_State" Type="nvarchar" MaxLength="50" />
           <Property Name="Address_Street" Type="nvarchar" MaxLength="50" />
@@ -51,24 +51,10 @@
           <EntitySet Name="BorrowRecord" EntityType="Self.BorrowRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QueryDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Book">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="AggregateRootId" Type="Guid" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Author" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ISBN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Pages" Type="Int32" Nullable="false" />
-          <Property Name="Inventory" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="BorrowRecord">
           <Key>
             <PropertyRef Name="Id" />
@@ -80,48 +66,47 @@
           <Property Name="BorrowedDate" Type="DateTime" Precision="3" />
           <Property Name="ReturnedDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityContainer Name="QueryDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BorrowRecord" EntityType="Self.BorrowRecord" />
+          <EntitySet Name="Book" EntityType="QueryDBModel.Book" />
+          <EntitySet Name="User" EntityType="QueryDBModel.User" />
+        </EntityContainer>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="BookId" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Pages" Type="Int32" Nullable="false" />
+          <Property Name="Inventory" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AggregateRootId" Type="Guid" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContactPhone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address_Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address_State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address_Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address_City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address_Zip" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="QueryDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Book" EntityType="Self.Book" />
-          <EntitySet Name="BorrowRecord" EntityType="Self.BorrowRecord" />
-          <EntitySet Name="User" EntityType="Self.User" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QueryDBModelStoreContainer" CdmEntityContainer="QueryDBEntities">
-          <EntitySetMapping Name="Book">
-            <EntityTypeMapping TypeName="QueryDBModel.Book">
-              <MappingFragment StoreEntitySet="Book">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AggregateRootId" ColumnName="AggregateRootId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-                <ScalarProperty Name="Pages" ColumnName="Pages" />
-                <ScalarProperty Name="Inventory" ColumnName="Inventory" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BorrowRecord">
             <EntityTypeMapping TypeName="QueryDBModel.BorrowRecord">
               <MappingFragment StoreEntitySet="BorrowRecord">
@@ -134,21 +119,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Book">
+            <EntityTypeMapping TypeName="QueryDBModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Inventory" ColumnName="Inventory" />
+                <ScalarProperty Name="Pages" ColumnName="Pages" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="QueryDBModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AggregateRootId" ColumnName="AggregateRootId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
-                <ScalarProperty Name="Address_Country" ColumnName="Address_Country" />
-                <ScalarProperty Name="Address_State" ColumnName="Address_State" />
-                <ScalarProperty Name="Address_Street" ColumnName="Address_Street" />
-                <ScalarProperty Name="Address_City" ColumnName="Address_City" />
                 <ScalarProperty Name="Address_Zip" ColumnName="Address_Zip" />
+                <ScalarProperty Name="Address_City" ColumnName="Address_City" />
+                <ScalarProperty Name="Address_Street" ColumnName="Address_Street" />
+                <ScalarProperty Name="Address_State" ColumnName="Address_State" />
+                <ScalarProperty Name="Address_Country" ColumnName="Address_Country" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

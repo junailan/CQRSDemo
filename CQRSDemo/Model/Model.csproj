@@ -75,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EventModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Extension\Book.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -142,6 +143,12 @@
       <DependentUpon>QueryModel.edmx</DependentUpon>
       <LastGenOutput>QueryModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{fa98987d-b8f9-4680-be59-58f3b79227b9}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
