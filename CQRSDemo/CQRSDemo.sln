@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event", "Event\Event.csproj", "{3A72F5B4-9796-4A1C-9DD1-8B175CCC6A16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Command", "Command\Command.csproj", "{F9E3BE0C-3860-477A-8C8D-E2D12BA00CFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands", "Command\Commands.csproj", "{F9E3BE0C-3860-477A-8C8D-E2D12BA00CFC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronizationService", "SynchronizationService\SynchronizationService.csproj", "{9F7CE52A-B7CA-4D9E-A821-A07119B26D46}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{617566B0-D79C-4C5D-B287-C2F2D2297B8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "Framework\Framework.csproj", "{FA98987D-B8F9-4680-BE59-58F3B79227B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHandler", "EventHandler\EventHandler.csproj", "{5BE4AB67-29E6-4A5D-AB80-0FCA421766D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{FA98987D-B8F9-4680-BE59-58F3B79227B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA98987D-B8F9-4680-BE59-58F3B79227B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA98987D-B8F9-4680-BE59-58F3B79227B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE4AB67-29E6-4A5D-AB80-0FCA421766D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE4AB67-29E6-4A5D-AB80-0FCA421766D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE4AB67-29E6-4A5D-AB80-0FCA421766D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE4AB67-29E6-4A5D-AB80-0FCA421766D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

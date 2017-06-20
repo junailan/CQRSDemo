@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="QueryDBModel.BorrowRecord" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QueryDBModel.Book" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="QueryDBModel.User" Width="1.5" PointX="2.75" PointY="3.75" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

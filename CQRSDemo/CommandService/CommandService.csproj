@@ -41,8 +41,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookCommandService.cs" />
+    <Compile Include="CommandService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserComnandService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Command\Commands.csproj">
+      <Project>{f9e3be0c-3860-477a-8c8d-e2d12ba00cfc}</Project>
+      <Name>Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{fa98987d-b8f9-4680-be59-58f3b79227b9}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
