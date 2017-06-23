@@ -11,12 +11,18 @@ namespace QueryService
     {
         public List<Book> GetBooks()
         {
-            return null;
+            using (QueryDBEntities _dbContext = new QueryDBEntities())
+            {
+                return _dbContext.Book.OrderBy(t => t.Id).ToList();
+            }
         }
 
-        public Book GetBookById(Guid guid)
+        public Book GetBookById(Guid bookAggregateRootId)
         {
-            return null;
+            using (QueryDBEntities _dbContext = new QueryDBEntities())
+            {
+                return _dbContext.Book.FirstOrDefault(t => t.AggregateRootId == bookAggregateRootId);
+            }
         }
     }
 }

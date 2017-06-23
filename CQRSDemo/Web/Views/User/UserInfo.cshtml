@@ -1,0 +1,141 @@
+﻿@model CQRSDemo.Models.UserInfoModel
+@{
+    ViewBag.Title = "个人信息";
+}
+<div>
+    <h4>个人信息</h4>
+    <hr />
+    <dl class="dl-horizontal"></dl>
+</div>
+
+<fieldset>
+    <legend>@Html.DisplayFor(model => model.UserInfo.UserName)</legend>
+    <h4>基础信息</h4>
+    <table>
+        <tr>
+            <th>
+                用户名
+            </th>
+            <th>
+                昵称
+            </th>
+            <th>
+                邮箱
+            </th>
+            <th>
+                联系电话
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(m => m.UserInfo.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => m.UserInfo.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => m.UserInfo.Email)
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.UserInfo.ContactPhone))
+                {
+                    @Html.DisplayFor(model => model.UserInfo.ContactPhone);
+                }
+            </td>
+        </tr>
+    </table>
+    <br />
+    <h4>住址信息</h4>
+    <table>
+        <tr>
+            <th>国家</th>
+            <th>省份</th>
+            <th>城市</th>
+            <th>街道</th>
+            <th>邮编</th>
+        </tr>
+        <tr>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.UserInfo.Address_Country))
+                {
+                    @Html.DisplayFor(m => m.UserInfo.Address_Country)
+                }
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.UserInfo.Address_State))
+                {
+                    @Html.DisplayFor(m => m.UserInfo.Address_State)
+                }
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.UserInfo.Address_City))
+                {
+                    @Html.DisplayFor(m => m.UserInfo.Address_City)
+                }
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.UserInfo.Address_Street))
+                {
+                    @Html.DisplayFor(m => m.UserInfo.Address_Street)
+                }
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.UserInfo.Address_Zip))
+                {
+                    @Html.DisplayFor(m => m.UserInfo.Address_Zip)
+                }
+            </td>
+        </tr>
+    </table>
+    <p>
+        @Html.ActionLink("修改信息", "Edit")
+    </p>
+</fieldset>
+
+<fieldset>
+    <legend>借书记录</legend>
+    @if (Model.BorrowRecords != null && Model.BorrowRecords.Count > 0)
+    {
+        <table>
+            <tr>
+                <th>书名</th>
+                <th>借书时间</th>
+                <th>已归还</th>
+                <th>归还时间</th>
+                <th>操作</th>
+            </tr>
+            @for (int i = 0; i < Model.BorrowRecords.Count; i++)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(p => p.BorrowRecords[i].Title)</td>
+                    <td>@Html.DisplayFor(p => p.BorrowRecords[i].BorrowedDate)</td>
+                    <td>@Html.DisplayFor(p => p.BorrowRecords[i].Returned)</td>
+                    <td>
+                        @if (Model.BorrowRecords[i].Returned)
+                        {
+                            @Html.DisplayFor(p => p.BorrowRecords[i].ReturnedDate)
+                        }                        
+                    </td>
+                    <td>
+                        @if (!Model.BorrowRecords[i].Returned)
+                        {
+                            @Html.ActionLink("归还", "ReturnBook", "User", new { bookId = Model.BorrowRecords[i].BookAggregateRootId }, new { onclick = "return confirm('确认归还此书?');" })
+                        }
+                        else
+                        {
+                            @Html.Encode("N/A")
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    { <br />
+    @Html.Encode("无记录");
+    }
+    <p>
+        @Html.ActionLink("书籍列表", "List", "Book")
+    </p>
+</fieldset>

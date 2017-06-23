@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Command.Users
+namespace Commands.Users
 {
     public class UpdateUserCommand : CommandBase
     {

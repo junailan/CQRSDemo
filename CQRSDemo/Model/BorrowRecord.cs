@@ -15,8 +15,8 @@ namespace Model
     public partial class BorrowRecord
     {
         public int Id { get; set; }
-        public System.Guid UserID { get; set; }
-        public System.Guid BookID { get; set; }
+        public System.Guid UserAggregateRootId { get; set; }
+        public System.Guid BookAggregateRootId { get; set; }
         public bool Returned { get; set; }
         public Nullable<System.DateTime> BorrowedDate { get; set; }
         public Nullable<System.DateTime> ReturnedDate { get; set; }

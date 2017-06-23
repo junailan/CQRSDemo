@@ -25,7 +25,7 @@ namespace Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<Snapshot> Snapshot { get; set; }
+        public virtual DbSet<Event> Event { get; set; }
     }
 }

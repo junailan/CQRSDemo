@@ -5,9 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="dd84f283dffe4ca8ab517f3914d8b820" Name="Diagram1">
-        <EntityTypeShape EntityType="QueryDBModel.BorrowRecord" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QueryDBModel.Book" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="QueryDBModel.User" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QueryDBModel.BorrowRecord" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QueryDBModel.BorrowRecordView" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="QueryDBModel.Book" Width="1.5" PointX="5.375" PointY="4.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

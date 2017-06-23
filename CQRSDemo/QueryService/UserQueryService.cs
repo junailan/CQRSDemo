@@ -11,12 +11,18 @@ namespace QueryService
     {
         public User GetUserByUserName(string userName)
         {
-            return null;
+            using (QueryDBEntities _dbContext = new QueryDBEntities())
+            {
+                return _dbContext.User.FirstOrDefault(t => t.UserName == userName);
+            }
         }
 
-        public List<BorrowRecord> GetBorrowRecordsByUserId(Guid userId)
+        public List<BorrowRecordView> GetBorrowRecordsByUserId(Guid userId)
         {
-            return null;
+            using (QueryDBEntities _dbContext = new QueryDBEntities())
+            {
+                return _dbContext.BorrowRecordView.Where(t => t.UserAggregateRootId == userId).OrderByDescending(t => t.Id).ToList();
+            }
         }
     }
 }

@@ -46,6 +46,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +59,9 @@
       <DependentUpon>QueryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BorrowRecord.cs">
+      <DependentUpon>QueryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BorrowRecordView.cs">
       <DependentUpon>QueryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DomainRepository.cs" />
@@ -152,9 +156,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Event\Event.csproj">
+    <ProjectReference Include="..\Event\Events.csproj">
       <Project>{3a72f5b4-9796-4a1c-9dd1-8b175ccc6a16}</Project>
-      <Name>Event</Name>
+      <Name>Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.csproj">
       <Project>{fa98987d-b8f9-4680-be59-58f3b79227b9}</Project>

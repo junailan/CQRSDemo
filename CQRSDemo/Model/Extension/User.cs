@@ -1,4 +1,4 @@
-﻿using Event.Users;
+﻿using Events.Users;
 using Framework;
 using Newtonsoft.Json;
 using System;
@@ -11,14 +11,12 @@ namespace Model
 {
     public partial class User : SourcedAggregateRoot
     {
-        public User() : base() { }
-        public User(Guid id) : base(id) { }
-
         public static User Create(string userName, string password, string displayName, string email, string contactPhone, string address_Country, string address_State, string address_Street, string address_City, string address_Zip)
         {
             User user = new User();
             user.RaiseEvent<UserCreateEvent>(new UserCreateEvent()
             {
+                AggregateRootId = Guid.NewGuid(),
                 UserName = userName,
                 Password = password,
                 DisplayName = displayName,
@@ -38,6 +36,7 @@ namespace Model
         {
             this.RaiseEvent<UserUpdateEvent>(new UserUpdateEvent
             {
+                AggregateRootId = this.AggregateRootId,
                 DisplayName = displayName,
                 Email = email,
                 ContactPhone = contactPhone,
@@ -51,10 +50,11 @@ namespace Model
 
         public void BorrowBook(Book book)
         {
-            if (this.bookIds.Contains(book.AggregateRootId))
-                throw new Exception("You've already borrowed this book.");
+            if (this._bookIds.Contains(book.AggregateRootId))
+                throw new Exception("你已经借过这本书了.");
             this.RaiseEvent<UserBorrowBookEvent>(new UserBorrowBookEvent
             {
+                AggregateRootId = this.AggregateRootId,
                 UserAggregateRootId = this.AggregateRootId,
                 BookAggregateRootId = book.AggregateRootId,
                 BorrowedDate = DateTime.Now
@@ -63,20 +63,34 @@ namespace Model
 
         public void ReturnBook(Book book)
         {
-            if (!this.bookIds.Contains(book.AggregateRootId))
-                throw new Exception("I have not borrowed this book yet.");
+            if (!this._bookIds.Contains(book.AggregateRootId))
+                throw new Exception("你没有借过这本书或已经归还.");
             this.RaiseEvent<UserReturnBookEvent>(new UserReturnBookEvent
             {
+                AggregateRootId = this.AggregateRootId,
                 UserAggregateRootId = this.AggregateRootId,
                 BookAggregateRootId = book.AggregateRootId,
                 ReturnedDate = DateTime.Now
             });
         }
 
-        private List<Guid> bookIds = new List<Guid>();
+        private List<Guid> _bookIds = new List<Guid>();
 
-        private void HandleEvent(UserCreateEvent e)
+        public List<Guid> BookIds
         {
+            get
+            {
+                return _bookIds;
+            }
+            set
+            {
+                _bookIds = value;
+            }
+        }
+
+        public void HandleEvent(UserCreateEvent e)
+        {
+            this.AggregateRootId = e.AggregateRootId;
             this.UserName = e.UserName;
             this.Password = e.Password;
             this.DisplayName = e.DisplayName;
@@ -89,17 +103,17 @@ namespace Model
             this.Address_Zip = e.Address_Zip;
         }
 
-        private void HandleEvent(UserBorrowBookEvent e)
+        public void HandleEvent(UserBorrowBookEvent e)
         {
-            this.bookIds.Add(e.BookAggregateRootId);
+            this._bookIds.Add(e.BookAggregateRootId);
         }
 
-        private void HandleEvent(UserReturnBookEvent e)
+        public void HandleEvent(UserReturnBookEvent e)
         {
-            this.bookIds.Remove(e.BookAggregateRootId);
+            this._bookIds.Remove(e.BookAggregateRootId);
         }
 
-        private void HandleEvent(UserUpdateEvent e)
+        public void HandleEvent(UserUpdateEvent e)
         {
             this.DisplayName = e.DisplayName;
             this.Email = e.Email;
@@ -114,6 +128,7 @@ namespace Model
         public override void DoBuildFromSnapshot(ISnapshot snapshot)
         {
             User user = JsonConvert.DeserializeObject<User>(snapshot.Data);
+            this.AggregateRootId = user.AggregateRootId;
             this.UserName = user.UserName;
             this.Password = user.Password;
             this.Email = user.Email;
@@ -124,6 +139,8 @@ namespace Model
             this.Address_State = user.Address_State;
             this.Address_Street = user.Address_Street;
             this.Address_Zip = user.Address_Zip;
+            this.Version = user.Version;
+            this.BookIds = user.BookIds;
         }
 
         public override ISnapshot CreateSnapshot()

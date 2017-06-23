@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Event.Users
+namespace Events.Users
 {
     public class UserBorrowBookEvent : EventBase
     {

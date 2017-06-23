@@ -1,0 +1,47 @@
+﻿@model Model.Book
+@{
+    ViewBag.Title = "详细信息";
+}
+<div>
+    <h4>详细信息</h4>
+    <hr /><fieldset>
+        <legend>@Html.DisplayFor(model => model.Title)</legend>
+
+        <div class="display-label">书名</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Title)
+        </div>
+
+        <div class="display-label">ISBN</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ISBN)
+        </div>
+
+        <div class="display-label">作者</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Author)
+        </div>
+
+        <div class="display-label">描述</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+
+        <div class="display-label">页数</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Pages)
+        </div>
+
+        <div class="display-label">库存</div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Inventory)
+        </div>
+    </fieldset>
+</div>
+<p>
+    @Html.ActionLink("返回", "List") &nbsp;
+    @if (User.Identity.Name == "admin")
+    {
+        @Html.ActionLink("编辑", "Edit", new { id = Model.AggregateRootId })
+    }
+</p>

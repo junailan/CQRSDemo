@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Command.Books
+namespace Commands.Books
 {
     public class DeleteBookCommand : CommandBase
     {
-        public Guid BookId { get; set; }
+        public Guid BookAggregateRootId { get; set; }
     }
 }

@@ -25,8 +25,9 @@ namespace Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BorrowRecord> BorrowRecord { get; set; }
-        public virtual DbSet<Book> Book { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<BorrowRecord> BorrowRecord { get; set; }
+        public virtual DbSet<BorrowRecordView> BorrowRecordView { get; set; }
+        public virtual DbSet<Book> Book { get; set; }
     }
 }

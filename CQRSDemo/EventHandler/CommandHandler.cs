@@ -1,6 +1,6 @@
-﻿using Command;
-using Command.Books;
-using Command.Users;
+﻿using Commands;
+using Commands.Books;
+using Commands.Users;
 using Framework;
 using Model;
 using System;
@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Command
+namespace Handler
 {
     public class CommandHandler
     {
@@ -26,7 +26,7 @@ namespace Command
         public void Handle(ICommand command)
         {
             dynamic d = this;
-            d.HandleCommand(System.Convert.ChangeType(command, command.GetType()));
+             d.HandleCommand(Converter.ChangeTo(command, command.GetType()));
         }
 
         public void HandleCommand(CreateUserCommand command)

@@ -22,3 +22,37 @@ select,
 textarea {
     max-width: 280px;
 }
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #999;
+}
+
+td {
+    border: 1px solid #999;
+    padding:5px 10px;
+}
+th {
+    padding: 6px 5px;
+    text-align: left;
+    color: White;
+    background-color: #5c87b2;
+    border: 1px solid #999;
+}
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    width:auto;
+    border-bottom:none;
+}
+.display-label, 
+.editor-label {
+    margin: 1em 0 0 0;
+    font-weight: bold;
+    color: #5c87b2;
+}

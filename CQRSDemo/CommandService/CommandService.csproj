@@ -50,6 +50,10 @@
       <Project>{f9e3be0c-3860-477a-8c8d-e2d12ba00cfc}</Project>
       <Name>Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EventHandler\Handler.csproj">
+      <Project>{5be4ab67-29e6-4a5d-ab80-0fca421766d9}</Project>
+      <Name>Handler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.csproj">
       <Project>{fa98987d-b8f9-4680-be59-58f3b79227b9}</Project>
       <Name>Framework</Name>

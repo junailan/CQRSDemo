@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,17 +10,9 @@ namespace Framework
 {
     public abstract class SourcedAggregateRoot
     {
-        public SourcedAggregateRoot() : this(Guid.NewGuid())
-        {
-
-        }
-        public SourcedAggregateRoot(Guid id)
-        {
-            this.AggregateRootId = id;
-        }
-
         private readonly List<IEvent> _uncommittedEvents = new List<IEvent>();
 
+        [JsonIgnore]
         public List<IEvent> UncommittedEvents
         {
             get
@@ -28,7 +21,7 @@ namespace Framework
             }
         }
 
-        public Guid AggregateRootId { get; set; }
+        public  Guid AggregateRootId { get; set; }
         public int Version { get; set; }
 
         public abstract void DoBuildFromSnapshot(ISnapshot snapshot);
@@ -43,9 +36,11 @@ namespace Framework
             dynamic d = this;
             foreach (var e in events)
             {
-                Type type = Type.GetType(e.EventType);
-                object obj = JsonConvert.DeserializeObject(e.Data);
-                d.HandleEvent(System.Convert.ChangeType(obj, type));
+                Assembly assembly = Assembly.Load("Events");
+                Type type = assembly.GetType(e.EventType);
+                object obj = JsonConvert.DeserializeObject(e.Data, type);
+                d.HandleEvent(Converter.ChangeTo(obj, type));
+                this.Version = e.Version;
             }
         }
 
@@ -53,15 +48,15 @@ namespace Framework
 
         public void RaiseEvent<T>(T @event) where T : IEvent
         {
-            @event.AggregateRootId = this.AggregateRootId;
             @event.AggregateRootType = this.GetType().ToString();
             @event.Timestamp = DateTime.Now;
             @event.EventType = @event.GetType().ToString();
-            @event.Data = JsonConvert.SerializeObject(this);
+            @event.Data = JsonConvert.SerializeObject(@event);
+            @event.Version = this.Version;
 
             dynamic d = this;
 
-            d.HandleEvent(System.Convert.ChangeType(@event, @event.GetType()));
+            d.HandleEvent(Converter.ChangeTo(@event, @event.GetType()));
 
             this.UncommittedEvents.Add(@event);
         }

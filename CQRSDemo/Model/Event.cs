@@ -24,5 +24,7 @@ namespace Model
         public string Description { get; set; }
         public string UserName { get; set; }
         public bool Synchronized { get; set; }
+        public int FailedTimes { get; set; }
+        public string FailedReason { get; set; }
     }
 }

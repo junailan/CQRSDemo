@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Model.Book>
+
+@{
+    ViewBag.Title = "书籍列表";
+}
+
+<br/>
+<p>
+    @if (User.Identity.Name == "admin")
+    {
+        @Html.ActionLink("添加", "Create")
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            书名
+        </th>
+        <th>
+            作者
+        </th>
+        <th>
+            ISBN
+        </th>
+        <th>
+            页数
+        </th>
+        <th>
+            库存
+        </th>
+        <th>操作</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Inventory)
+            </td>
+            <td>
+                @Html.ActionLink("明细", "Detail", new { id = item.AggregateRootId }) |
+                @Html.ActionLink("借书", "BorrowBook","User", new { bookId = item.AggregateRootId }, new { onclick = "return confirm('确定借走该书吗?');" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Command.Books
+namespace Commands.Books
 {
     public class CreateBookCommand : CommandBase
     {

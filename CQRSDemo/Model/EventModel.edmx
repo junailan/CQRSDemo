@@ -19,6 +19,8 @@
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Synchronized" Type="bit" Nullable="false" />
+          <Property Name="FailedTimes" Type="int" Nullable="false" />
+          <Property Name="FailedReason" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Snapshot">
           <Key>
@@ -39,24 +41,9 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EventDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Event">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AggregateRootId" Type="Guid" Nullable="false" />
-          <Property Name="AggregateRootType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Version" Type="Int32" Nullable="false" />
-          <Property Name="EventType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Synchronized" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="EventDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Event" EntityType="Self.Event" />
           <EntitySet Name="Snapshot" EntityType="EventDBModel.Snapshot" />
+          <EntitySet Name="Event" EntityType="EventDBModel.Event" />
         </EntityContainer>
         <EntityType Name="Snapshot">
           <Key>
@@ -69,34 +56,53 @@
           <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AggregateRootId" Type="Guid" Nullable="false" />
+          <Property Name="AggregateRootType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <Property Name="EventType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Synchronized" Type="Boolean" Nullable="false" />
+          <Property Name="FailedTimes" Type="Int32" Nullable="false" />
+          <Property Name="FailedReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="EventDBModelStoreContainer" CdmEntityContainer="EventDBEntities">
-          <EntitySetMapping Name="Event">
-            <EntityTypeMapping TypeName="EventDBModel.Event">
-              <MappingFragment StoreEntitySet="Event">
-                <ScalarProperty Name="Synchronized" ColumnName="Synchronized" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AggregateRootId" ColumnName="AggregateRootId" />
-                <ScalarProperty Name="AggregateRootType" ColumnName="AggregateRootType" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="EventType" ColumnName="EventType" />
-                <ScalarProperty Name="Data" ColumnName="Data" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Snapshot">
             <EntityTypeMapping TypeName="EventDBModel.Snapshot">
               <MappingFragment StoreEntitySet="Snapshot">
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="AggregateRootType" ColumnName="AggregateRootType" />
+                <ScalarProperty Name="AggregateRootId" ColumnName="AggregateRootId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Event">
+            <EntityTypeMapping TypeName="EventDBModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="FailedReason" ColumnName="FailedReason" />
+                <ScalarProperty Name="FailedTimes" ColumnName="FailedTimes" />
+                <ScalarProperty Name="Synchronized" ColumnName="Synchronized" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="AggregateRootType" ColumnName="AggregateRootType" />
                 <ScalarProperty Name="AggregateRootId" ColumnName="AggregateRootId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

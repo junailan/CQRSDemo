@@ -44,13 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandler.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Event\Event.csproj">
+    <ProjectReference Include="..\Command\Commands.csproj">
+      <Project>{f9e3be0c-3860-477a-8c8d-e2d12ba00cfc}</Project>
+      <Name>Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Event\Events.csproj">
       <Project>{3a72f5b4-9796-4a1c-9dd1-8b175ccc6a16}</Project>
-      <Name>Event</Name>
+      <Name>Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{fa98987d-b8f9-4680-be59-58f3b79227b9}</Project>
+      <Name>Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{61c75b7e-77a7-464b-922e-f76d2b4fbeaa}</Project>

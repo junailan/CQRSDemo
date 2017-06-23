@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="34ef455488244647a0e31f234744e45f" Name="Diagram1">
-        <EntityTypeShape EntityType="EventDBModel.Event" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EventDBModel.Snapshot" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EventDBModel.Event" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

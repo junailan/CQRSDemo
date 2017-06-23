@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{61C75B7E-77A7-464B-922E-F76D2B4FBEAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event", "Event\Event.csproj", "{3A72F5B4-9796-4A1C-9DD1-8B175CCC6A16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events", "Event\Events.csproj", "{3A72F5B4-9796-4A1C-9DD1-8B175CCC6A16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands", "Command\Commands.csproj", "{F9E3BE0C-3860-477A-8C8D-E2D12BA00CFC}"
 EndProject
@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "Framework\Framework.csproj", "{FA98987D-B8F9-4680-BE59-58F3B79227B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHandler", "EventHandler\EventHandler.csproj", "{5BE4AB67-29E6-4A5D-AB80-0FCA421766D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handler", "EventHandler\Handler.csproj", "{5BE4AB67-29E6-4A5D-AB80-0FCA421766D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
